@@ -1,0 +1,61 @@
+clone:
+  depth: 1
+testStep: &testStep
+  name: Test
+  image: node:alpine
+  caches:
+    - node
+  script:
+    - npm i
+deployStep: &deployStep
+  name: Deploy
+  image: amazon/aws-cli
+  caches:
+    - docker
+  script:
+    - mkdir -p ~/.aws
+    - |
+      cat <<EOT >>~/.aws/credentials
+      [management]
+      aws_access_key_id = $MGMT_AWS_ACCESS_KEY_ID
+      aws_secret_access_key = $MGMT_AWS_SECRET_ACCESS_KEY
+      EOT
+    - |
+      cat <<EOT >>~/.aws/config
+      [profile management]
+      region = eu-west-3
+
+      [profile target]
+      role_arn = arn:aws:iam::$VOLTAAGE_TARGET_ACCOUNT:role/DeployerRole
+      source_profile = management
+      region = eu-west-3
+      EOT
+    - aws sts get-caller-identity --profile target
+    - aws ecr get-login-password --profile target | docker login --username AWS --password-stdin $VOLTAAGE_TARGET_ACCOUNT.dkr.ecr.$AWS_REGION.amazonaws.com
+    - docker build -t b2c-frontend:latest .
+    - docker tag b2c-frontend:latest $VOLTAAGE_TARGET_ACCOUNT.dkr.ecr.$AWS_REGION.amazonaws.com/b2c-frontend:latest
+    - docker push $VOLTAAGE_TARGET_ACCOUNT.dkr.ecr.$AWS_REGION.amazonaws.com/b2c-frontend:latest
+    - aws ecs update-service --cluster app --service b2c --force-new-deployment --profile target
+  services:
+    - docker
+pipelines:
+  default:
+    - step:
+        <<: *testStep
+  branches:
+    'deployment/sandbox':
+      - step:
+          <<: *testStep
+      - step:
+          deployment: sandbox
+          <<: *deployStep
+    '{main,deployment/development}':
+      - step:
+          <<: *testStep
+      - step:
+          deployment: development
+          <<: *deployStep
+definitions:
+  services:
+    docker:
+      memory: 3072

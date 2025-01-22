@@ -1,0 +1,72 @@
+.non-incluso {
+    overflow-y: hidden;
+    position: relative;
+}
+
+.car-suggest__ribbon {
+    margin-top: 2rem;
+    background: linear-gradient(135deg, #8b62fd 0%, #6435f4 100%);
+    width: fit-content;
+    padding: 0.5rem 0.8rem;
+    margin-left: -1.25rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    position: relative;
+    font-weight: 500;
+}
+
+.car-suggest__ribbon::before {
+    position: absolute;
+    content: '';
+    width: 18px;
+    height: 18px;
+    background-image: linear-gradient(to bottom right, transparent 50%, #6d3ff6 0);
+    background-size: 100% 50%;
+    background-repeat: no-repeat;
+    background-position: left, right;
+    left: 0;
+    top: -13.5px;
+}
+
+.car-suggest__ribbon::after {
+    position: absolute;
+    content: '';
+    width: 18px;
+    height: 18px;
+    background-image: linear-gradient(to bottom left, #8b62fd 50%, transparent 0);
+    background-size: 100% 50%;
+    background-repeat: no-repeat;
+    background-position: left, right;
+    left: 0;
+    bottom: -13.5px;
+}
+
+
+/* .non-incluso::before {
+    content: url("../../../assets/icons/cross.png");
+    position: absolute;
+    left: 1rem;
+    top: 15%;
+} */
+
+.--suggestion-focus {
+    color: #865dfc;
+    font-weight: 600;
+}
+
+.--subtitle-focus {
+    color: #d60000;
+}
+
+.--unavailable {
+    position: relative;
+}
+
+.--unavailable::after {
+    font-size: 10px;
+    content: "Soluzione non disponible";
+    color: #d60000;
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

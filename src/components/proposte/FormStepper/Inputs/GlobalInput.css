@@ -1,0 +1,8 @@
+.MuiInputBase-root {
+    border: "1px solid yellow";
+    padding: "0";
+}
+
+.MuiOutlinedInput-root {
+    border: "1px solid blue";
+}

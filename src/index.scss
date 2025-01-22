@@ -1,0 +1,69 @@
+@import './styles/typography.scss';
+
+body {
+	margin: 0;
+	font-family: Montserrat, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',
+		'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	height: 100vh;
+	width: 100vw;
+
+	code {
+		font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+	}
+
+	#root {
+		height: 100%;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+
+	* {
+		box-sizing: border-box;
+	}
+
+	form {
+		display: flex;
+		width: 100%;
+	}
+
+	/* width */
+	::-webkit-scrollbar {
+		width: 12px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+		background: #e4f0ff;
+		box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+		border-radius: 8px;
+	}
+
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+		background: rgb(77, 217, 208);
+		background: linear-gradient(0deg, rgba(77, 217, 208, 1) 20%, rgba(97, 118, 244, 1) 100%);
+		border-radius: 16px;
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+		background: rgb(77, 217, 208);
+		background: linear-gradient(180deg, rgba(77, 217, 208, 1) 20%, rgba(97, 118, 244, 1) 100%);
+	}
+}
+
+
+.--scrollbar-hidden {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.--scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+    /* Chrome */
+}

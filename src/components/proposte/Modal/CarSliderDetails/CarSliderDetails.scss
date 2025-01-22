@@ -1,0 +1,18 @@
+.--fadeIn {
+	animation-name: fadeIn;
+	animation-duration: .5s;
+	animation-direction: alternate;
+	animation-timing-function: linear;
+	animation-fill-mode: forwards;
+}
+
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
